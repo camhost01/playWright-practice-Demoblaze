@@ -1,0 +1,26 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test-cart": "npx playwright test test/e2e/cart.spec.ts ",
+    "test-cart-debug": "npx playwright test test/e2e/cart.spec.ts --debug",
+    "test-landing": "npx playwright test test/e2e/landing.spec.ts ",
+    "test-landing-debug": "npx playwright test test/e2e/landing.spec.ts --debug",
+    "test-smoke-suite": "npx playwright test --grep @smoke_test",
+    "test:browserstack": "BROWSERSTACK=true npx playwright test",
+    "test:browserstack:debug": "BROWSERSTACK=true npx playwright test --debug"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.3"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.11.1"
+  }
+}
