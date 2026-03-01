@@ -20,11 +20,19 @@ export class LandingPage {
   private readonly productCardAlert: Locator;
   private readonly productCardName: Locator;
   private readonly productCardValue: Locator;
+  private readonly logUserName: Locator;
+  private readonly logUserPassword: Locator;
+  private readonly logCancelBtn: Locator;
+  private readonly logInBtn: Locator;
+  private readonly signUserName: Locator;
+  private readonly signUserPassword: Locator;
+  private readonly signInBtn: Locator;
 
   constructor(private page: Page) {
     this.carousel = new Carousel(page);
     this.navigationBar = new NavigationBar(page);
     this.logo = page.locator('#nava');
+    // CATEGORIES
     this.categoriesContainer = page.locator('.list-group');
     this.phoneCategory = page.getByText('Phones');   //page.locator('#itemc,oneclick',{ hasText : 'Phones' });
     this.laptopCategory = page.getByText('Laptops');
@@ -35,6 +43,14 @@ export class LandingPage {
     this.productCardName = page.getByRole('heading', {level: 2});
     this.productCardValue = page.getByRole('heading', {level: 3});
     this.productCardAlert = page.getByRole('alert');
+    this.logUserName = page.locator('#loginusername');
+    this.logUserPassword = page.locator('#loginpassword');
+    // LOGIN - SIGN IN
+    this.logInBtn = page.getByRole('button',{name: 'Log in'});
+    this.logCancelBtn = page.getByLabel('Log in').getByText('Close');
+    this.signUserName = page.locator('#sign-username');
+    this.signUserPassword = page.locator('#sign-password');
+    this.signInBtn = page.getByRole('button',{name: 'Sign up'});
   };
 
   /**
@@ -142,5 +158,21 @@ export class LandingPage {
   async clickSignInMenu(){
     await this.navigationBar.clickSignIn();
   }; 
+
+  async addUserCredentials(email: string, password: string){
+    await this.logUserName.fill(email);
+    await this.logUserPassword.fill(password);
+    await this.logInBtn.click();
+  };
+
+  async validateUserLoggedIn(username: string){
+    await expect(this.logCancelBtn).toBeVisible();
+    await this.logCancelBtn.click();
+    await this.navigationBar.validateUserIsLogged(username);
+  };
+
+  async logOutUser(){
+    await this.navigationBar.clickLogOutUser();
+  };
 };
 

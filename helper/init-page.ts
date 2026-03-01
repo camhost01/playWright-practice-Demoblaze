@@ -37,13 +37,13 @@ interface TestData {
 export const test = base.extend<CustomFixtures>({
   // Fixture para página de landing pre-configurada
   landingPage: async ({ page }, use) => {
-    const landingPage = new LandingPage(page);
-    await landingPage.goto();
-    await use(landingPage);
+    const basePage = new LandingPage(page);
+    await basePage.goto();
+    await use(basePage);
   },
   cart: async({landingPage,page},use) =>{
-    await landingPage.addProductCart();
-    await landingPage.clickCartMenu();
+   await landingPage.addProductCart();
+   await landingPage.clickCartMenu();
     await use(new CartItem(page));
   },
   // Fixture para hacer requests API
@@ -52,12 +52,12 @@ export const test = base.extend<CustomFixtures>({
   },
 
   // Fixture con datos de prueba
-  testData: async ({cart}, use: (data: TestData) => Promise<void>) => {
+  testData: async ({}, use: (data: TestData) => Promise<void>) => {
     const data: TestData = {
       user: {
         email: 'test@example.com',
-        password: 'Test1234!',
-        name: 'MyName',
+        password: 'test',
+        name: 'test',
         cardNumber: '4455323343'
       },
       config: {
